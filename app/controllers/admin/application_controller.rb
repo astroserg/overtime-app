@@ -1,4 +1,9 @@
 module Admin
+
+  def admin_types
+    ['AdminUser']
+  end
+
   class ApplicationController < Administrate::ApplicationController
     before_action :authenticate_user!
     before_action :authenticate_admin
