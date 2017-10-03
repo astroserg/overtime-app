@@ -1,4 +1,4 @@
-require 'rails_helper'
+# require 'rails_helper'
 
 describe 'admin dashboard' do
   it 'can be reached successfully' do

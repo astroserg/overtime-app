@@ -1,3 +1,4 @@
+
 source 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
@@ -40,7 +41,7 @@ group :development, :test do
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
   gem 'rspec', '~> 3.6'
-  gem 'rspec-rails'
+  gem 'rspec-rails', '~> 3.6', '>= 3.6.1'
   gem 'database_cleaner'
 end
 
