@@ -3,9 +3,16 @@
 @import "posts.scss";
 @import "gritter";
 @import "bourbon";
+@import "admin_homepage.scss";
 
 .custom-nav {
 	margin-top: 15px;
+}
+
+#title-index {
+	text-align: center;
+
+
 }
 
 
