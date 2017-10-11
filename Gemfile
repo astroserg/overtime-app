@@ -1,6 +1,5 @@
 
 source 'https://rubygems.org'
-
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
   "https://github.com/#{repo_name}.git"
@@ -69,3 +68,4 @@ gem 'pundit', '~> 1.1'
 gem 'twilio-ruby', '~> 4.11', '>= 4.11.1'
 gem 'dotenv-rails' , :groups => [:development, :test]
 gem 'kaminari', :git => 'https://github.com/kaminari/kaminari.git'
+ruby "2.4.0"

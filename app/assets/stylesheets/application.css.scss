@@ -3,16 +3,13 @@
 @import "posts.scss";
 @import "gritter";
 @import "bourbon";
-@import "admin_homepage.scss";
+@import "admin_homepage.css";
+@import "employee_homepage.css";
 
 .custom-nav {
 	margin-top: 15px;
 }
 
-#title-index {
-	text-align: center;
-
-
+.btn-employee-home {
+	white-space:normal !important;
 }
-
-

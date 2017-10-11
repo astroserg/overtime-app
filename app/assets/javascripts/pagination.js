@@ -1,11 +1,11 @@
-(function ($) {
+(function($) {
   // Make sure that every Ajax request sends the CSRF token
   function CSRFProtection(xhr) {
     var token = $('meta[name="csrf-token"]').attr('content');
     if (token) xhr.setRequestHeader('X-CSRF-Token', token);
   }
-  if ('ajaxPrefilter' in $) $.ajaxPrefilter(function (options, originalOptions, xhr) { CSRFProtection(xhr) });
-  else $(document).ajaxSend(function (e, xhr) { CSRFProtection(xhr) });
+  if ('ajaxPrefilter' in $) $.ajaxPrefilter(function(options, originalOptions, xhr){ CSRFProtection(xhr) });
+  else $(document).ajaxSend(function(e, xhr){ CSRFProtection(xhr) });
 
   // Triggers an event on an element and returns the event result
   function fire(obj, name, data) {
@@ -38,19 +38,19 @@
     $.ajax({
       url: url, type: method || 'GET', data: data, dataType: dataType,
       // stopping the "ajax:beforeSend" event will cancel the ajax request
-      beforeSend: function (xhr, settings) {
+      beforeSend: function(xhr, settings) {
         if (settings.dataType === undefined) {
           xhr.setRequestHeader('accept', '*/*;q=0.5, ' + settings.accepts.script);
         }
         return fire(element, 'ajax:beforeSend', [xhr, settings]);
       },
-      success: function (data, status, xhr) {
+      success: function(data, status, xhr) {
         element.trigger('ajax:success', [data, status, xhr]);
       },
-      complete: function (xhr, status) {
+      complete: function(xhr, status) {
         element.trigger('ajax:complete', [xhr, status]);
       },
-      error: function (xhr, status, error) {
+      error: function(xhr, status, error) {
         element.trigger('ajax:error', [xhr, status, error]);
       }
     });
@@ -75,7 +75,7 @@
   }
 
   function disableFormElements(form) {
-    form.find('input[data-disable-with]').each(function () {
+    form.find('input[data-disable-with]').each(function() {
       var input = $(this);
       input.data('ujs:enable-with', input.val())
         .val(input.attr('data-disable-with'))
@@ -84,7 +84,7 @@
   }
 
   function enableFormElements(form) {
-    form.find('input[data-disable-with]').each(function () {
+    form.find('input[data-disable-with]').each(function() {
       var input = $(this);
       input.val(input.data('ujs:enable-with')).removeAttr('disabled');
     });
@@ -97,13 +97,13 @@
 
   function requiredValuesMissing(form) {
     var missing = false;
-    form.find('input[name][required]').each(function () {
+    form.find('input[name][required]').each(function() {
       if (!$(this).val()) missing = true;
     });
     return missing;
   }
 
-  $('a[data-confirm], a[data-method], a[data-remote]').live('click.rails', function (e) {
+  $('a[data-confirm], a[data-method], a[data-remote]').live('click.rails', function(e) {
     var link = $(this);
     if (!allowAction(link)) return false;
 
@@ -116,7 +116,7 @@
     }
   });
 
-  $('form').live('submit.rails', function (e) {
+  $('form').live('submit.rails', function(e) {
     var form = $(this), remote = form.attr('data-remote') != undefined;
     if (!allowAction(form)) return false;
 
@@ -128,23 +128,23 @@
       return false;
     } else {
       // slight timeout so that the submit button gets properly serialized
-      setTimeout(function () { disableFormElements(form) }, 13);
+      setTimeout(function(){ disableFormElements(form) }, 13);
     }
   });
 
-  $('form input[type=submit], form button[type=submit], form button:not([type])').live('click.rails', function () {
+  $('form input[type=submit], form button[type=submit], form button:not([type])').live('click.rails', function() {
     var button = $(this);
     if (!allowAction(button)) return false;
     // register the pressed submit button
-    var name = button.attr('name'), data = name ? { name: name, value: button.val() } : null;
+    var name = button.attr('name'), data = name ? {name:name, value:button.val()} : null;
     button.closest('form').data('ujs:submit-button', data);
   });
 
-  $('form').live('ajax:beforeSend.rails', function (event) {
+  $('form').live('ajax:beforeSend.rails', function(event) {
     if (this == event.target) disableFormElements($(this));
   });
 
-  $('form').live('ajax:complete.rails', function (event) {
+  $('form').live('ajax:complete.rails', function(event) {
     if (this == event.target) enableFormElements($(this));
   });
-})(jQuery);
+})( jQuery );
